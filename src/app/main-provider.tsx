@@ -10,11 +10,11 @@ import { MainErrorFallback } from '@/components/errors/main';
 // import { AuthLoader } from '@/lib/auth';
 // import { queryClient } from '@/lib/react-query';
 
-type AppProviderProps = {
-  children: React.ReactNode;
-};
+// type AppProviderProps = {
+//   children: React.ReactNode;
+// };
 
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const AppProvider = () => {
   return (
     <React.Suspense
       fallback={
