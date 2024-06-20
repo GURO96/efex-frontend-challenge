@@ -10,6 +10,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import LockIcon from '@mui/icons-material/Lock';
+import CardTip from '../card-tip/card-tip.tsx';
 
 // import CardTip from "../card-tip/card-tip";
 
@@ -47,7 +48,7 @@ export default function SideMenu() {
                             </ListItem>
                         ))}
                     </List>
-                
+                    <CardTip/>
                 </Box>
             </Box>
         </div>

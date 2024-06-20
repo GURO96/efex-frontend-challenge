@@ -24,6 +24,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -35,6 +36,12 @@ function AppHeader() {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  let navigate = useNavigate(); 
+  const routeChange = () =>{ 
+    let path = `dashboard`; 
+    navigate(path);
+  }
 
   return (
     <AppBar position="fixed" style={{backgroundColor: '#01123b', display: 'contents'}}>
@@ -61,8 +68,11 @@ function AppHeader() {
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
 
-          <Button variant="outlined" endIcon={<PersonIcon />}  sx={ {  color: '#ffffff', borderImageSlice: 1, borderImageSource: 'linear-gradient(90deg, #5fa6ff, #f9fcfe);',borderRadius: 28,'&:hover': {borderImageSlice: 1, borderImageSource: 'linear-gradient(90deg, #f9fcfe,#5fa6ff);',borderRadius: 28 }, transition: 'border-image-source 0.3s ease, transform 0.3s ease;'} } >
-            Ingresar
+          <Button variant="outlined" 
+          onClick={routeChange}
+            endIcon={<PersonIcon />}  
+            sx={ {  color: '#ffffff', borderImageSlice: 1, borderImageSource: 'linear-gradient(90deg, #5fa6ff, #f9fcfe);',borderRadius: 28,'&:hover': {borderImageSlice: 1, borderImageSource: 'linear-gradient(90deg, #f9fcfe,#5fa6ff);',borderRadius: 28 }, transition: 'border-image-source 0.3s ease, transform 0.3s ease;'} } >
+              Ingresar
           </Button>
           <ListItemButton onClick={handleClick}>
 

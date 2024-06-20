@@ -1,5 +1,4 @@
 import AppHeader from '../../components/app-header/app-header';
-import React from 'react'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
@@ -31,7 +30,7 @@ const Home = () => {
               Agendar Demo
             </Button> 
 
-      <Button variant="outlined" sx={ { color: '#ffffff', backgroundColor: '#f99c46',borderRadius: 28.  }} >
+      <Button variant="outlined" sx={ { color: '#ffffff', backgroundColor: '#f99c46',borderRadius: 28.  }} onClick={routeChange}>
         <p>Crear cuenta gratis</p>
       </Button>
     </Stack>

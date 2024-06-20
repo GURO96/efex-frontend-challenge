@@ -4,23 +4,46 @@ import FlagIcon from '@mui/icons-material/Flag';
 import PaidIcon from '@mui/icons-material/Paid';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import { BarChart } from '@mui/x-charts/BarChart';
-import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { DataContext } from '../../stores/CurrencyProvider';
+import { useState } from 'react';
 import CustomDialog from '../../components/ui/dialog/dialog';
+import { useQuery } from "@tanstack/react-query";
+import  fetchCurrencyEvents  from "../../utils/requestCurrencyData.tsx";
 
 export default function DashboardPage() {
 
-    const [countMXN, setCountMXN] = useState<number>(2000);
-    const [countUSD, setCountUSD] = useState<number>(100);
-    const [countCOP, setCountCOP] = useState<number>(10000);
-    const [countBG, setCountBG] = useState<number>(0);
+    const [countMXN, setCountMXN] = useState<number>(0);
+    const [countUSD, setCountUSD] = useState<number>(0);
+    const [countCOP, setCountCOP] = useState<number>(0);
+    const [countBG, setCountBG] = useState<number>(100);
+
+    // const [country, setCountry] = React.useState<any>(countries[2]);
+    // const [countryTwo, setCountryTwo] = React.useState<any>(countries[1]);
+
+    const balances = [
+        {
+            currency: 'USD',
+            amount: countUSD
+        }, {
+            currency: 'MXN',
+            amount: countMXN
+        }, {
+            currency: 'COP',
+            amount: countCOP
+        }
+    ]
 
     
 
-    const { data, loading, error }: any = useContext(DataContext);
+    const { data, isPending, isError, error } = useQuery({
+        queryKey: ["currencyEvents"],
+        queryFn: () => fetchCurrencyEvents({countBG, balanceGeneral:true}),
+    })
 
-    if (loading) {
+    
+
+    // const { data, loading, error }: any = useContext(DataContext);
+
+    if (isPending) {
         return <div>Loading...</div>;
     }
 
@@ -28,8 +51,28 @@ export default function DashboardPage() {
         return <div>Error: {error.message}</div>;
     }
 
-    if(data){
+    const {data: dataRes} = data;
+    let countContent;
+    if(dataRes){
+        
+        // console.log(dataRes)
 
+        // for (const [key, value] of Object.entries(dataRes.rates)) {
+        //     console.log(`${key}: ${value}`);
+
+
+            
+        //   }
+
+        //   countContent = 
+
+
+        //  dataRes.rates.entires((rates) => {
+            
+        // })
+        // setCountMXN(dataRes.rates.MXN)
+        // setCountUSD(dataRes.rates.USD)
+        // setCountCOP(dataRes.rates.COP)
     }
 
     // console.log(data)
@@ -52,18 +95,7 @@ export default function DashboardPage() {
     // }, []);
 
     
-    const balances = [
-        {
-            currency: 'USD',
-            amount: countUSD
-        }, {
-            currency: 'MXN',
-            amount: countMXN
-        }, {
-            currency: 'COP',
-            amount: countCOP
-        }
-    ]
+    
 
     const handleBalanceGeneral = () => {
 
@@ -100,7 +132,7 @@ export default function DashboardPage() {
                         display: 'flex',
                         flexWrap: 'wrap',
                         fontWeight: 'bold'
-                    }}>0.00
+                    }}>{countBG}
                         <Box sx={{
                             color: '#9E9E9E',
                             fontWeight: 'normal'
@@ -118,7 +150,14 @@ export default function DashboardPage() {
                         <Button variant={'outlined'} sx={{
                             margin: '0 0.5rem'
                         }}>Añadir fondos</Button>
-                        <CustomDialog props={{buttonName: 'Convertir'}}></CustomDialog>
+                        <CustomDialog props={{buttonName: 'Convertir'}} 
+                            // country={country} 
+                            // setCountry={setCountry} 
+                            // countryTwo={countryTwo} 
+                            // setCountryTwo={setCountryTwo}
+                            
+                            >
+                        </CustomDialog>
                         <Button disabled variant={'outlined'} sx={{
                             margin: '0.5rem 0'
                         }}>Retiro</Button>
@@ -130,43 +169,50 @@ export default function DashboardPage() {
                 justifyContent: 'space-between',
                 marginTop: '1rem'
             }}>
-                {balances.map((balance) => {
-                    return <Box sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        width: '25%',
-                        boxSizing: 'border-box',
-                        padding: '2rem',
-                        border: '1px solid #C7C7C7'
-                    }}>
-                        <Box sx={{
-                            width: '100%'
+                {
+                    Object.keys(dataRes.rates).map((key, index) => 
+                        {
+                            // console.log(key)
+                        //   console.log(dataRes.rates[index]);
+                          return  <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '25%',
+                            boxSizing: 'border-box',
+                            padding: '2rem',
+                            border: '1px solid #C7C7C7'
                         }}>
                             <Box sx={{
-                                fontSize: '16px',
-                                marginBottom: '0.5rem'
-                            }}>Balance {balance.currency}</Box>
-                            <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between'
+                                width: '100%'
                             }}>
                                 <Box sx={{
-                                    fontSize: '24px',
+                                    fontSize: '16px',
+                                    marginBottom: '0.5rem'
+                                }}>Balance {key}</Box>
+                                <Box sx={{
                                     display: 'flex',
-                                    flexWrap: 'wrap',
-                                    fontWeight: 'bold'
-                                }}>${balance.amount.toFixed(2)}
+                                    justifyContent: 'space-between'
+                                }}>
                                     <Box sx={{
-                                        color: '#9E9E9E',
-                                        fontWeight: 'normal'
-                                    }}> <p>&nbsp;{balance.currency}</p>
+                                        fontSize: '24px',
+                                        display: 'flex',
+                                        flexWrap: 'wrap',
+                                        fontWeight: 'bold'
+                                    }}>${dataRes.rates[key].toFixed(2)}
+                                        <Box sx={{
+                                            color: '#9E9E9E',
+                                            fontWeight: 'normal'
+                                        }}> <p>&nbsp;{key}</p>
+                                        </Box>
                                     </Box>
+                                    <FlagIcon/>
                                 </Box>
-                                <FlagIcon/>
                             </Box>
                         </Box>
-                    </Box>
-                })}
+                        
+                        }
+                      )
+                }
             </Box>
         </Box>
         <Box sx={{

@@ -19,7 +19,7 @@ export const CurrencyProvider = ({ children }: any) => {
         const fetchData = async () => {
             try {
                 // const response = await axios.get('https://continentl.com/api/currency-exchange-details/USD?key=sk-96I766724f320fca6281');
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+                const response = await axios.get('https://api.fxratesapi.com/latest?currencies=MXN&base=USD&amount=1');
                 setData(response.data);
                 calcFunction(response.data)
                 setLoading(false);
@@ -32,10 +32,10 @@ export const CurrencyProvider = ({ children }: any) => {
         fetchData();
 
         if(data) {
-            console.log(data)
+            //console.log(data)
         }
         const calcFunction = (data: any[]) => {
-            console.log(data);
+            //console.log(data);
             
         };
     }, []);

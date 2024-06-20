@@ -16,8 +16,9 @@ import CustomizedSelects from '../forms/form-exchange';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import { countries } from '../country-select/country-select';
 
-export default function CustomDialog({props}) {
+export default function CustomDialog({props}: any) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
@@ -47,47 +48,31 @@ export default function CustomDialog({props}) {
     color: theme.palette.text.secondary,
   }));
   
-  function GridExample() {
-    return (
-      <Grid container spacing={2} sx={{marginTop: '1rem'}} >
-        {/* {Array.from(Array(9).keys()).map((value) => (
-          <Grid item xs={4} key={value}>
-            <Item>Item {value + 1}</Item>
-          </Grid>
-        ))} */}
+  
 
-          <Grid item xs={6}  >
-            <p>Tasa de cambio</p>
-            
-          </Grid>
-          <Grid item xs={6}  >
-          <p><b>{'1 USD = 2000 MXN'} </b></p>
-            
-          </Grid>
+  // const handleOnChange = (eventValue :number) => {
+  //   console.log(eventValue)
+  //   setinputValue(eventValue);
+  // };
 
-          <Grid item xs={6}  >
-            <p>Las tarifas se actualizarán en</p>
-            
-          </Grid>
+  // const handleOnChangeTwo = (eventValue :number) => {
+  //   console.log(eventValue)
+  //   setinputValueTwo(eventValue);
+  // };
 
-          <Grid item xs={6}  >
-            <p><b>{'13 segundos'}</b></p>
-            
-          </Grid>
 
-          <Grid item xs={6}  >
-            <p>Total convertido</p>
-            
-          </Grid>
 
-          <Grid item xs={6}  >
-            <p><b>${'1'}</b></p>
-            
-          </Grid>
-          
-      </Grid>
-    );
-  }
+
+  
+
+  const [country, setCountry] = React.useState<any>(countries[2]);
+  const [countryTwo, setCountryTwo] = React.useState<any>(countries[1]);
+
+  // const [inputValue, setinputValue] = React.useState<number>(0);
+  // const [inputValueTwo, setinputValueTwo] = React.useState<number>(0);
+
+  
+
 
   return (
     <React.Fragment>
@@ -98,25 +83,32 @@ export default function CustomDialog({props}) {
         open={open}
         onClose={handleClose}
         
-      >
+      ><DialogActions >
+      <Button sx={{fontSize: '1.5rem'}} onClick={handleClose}>X</Button>
+    </DialogActions>
         <div className='pt-10 pl-24 pb-10 pr-24'>
 
+        
+
         <DialogTitle align='center' sx={{ color: 'black', fontWeight: 'bold' }}>Convertir</DialogTitle>
-        <DialogContent>
+        
+        <DialogContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <DialogContentText align='center' >
             Convierte la cantidad que quieras a una moneda diferente
           </DialogContentText>
  
-          <CustomizedSelects/>
+          <CustomizedSelects country={country} 
+            setCountry={setCountry} 
+            countryTwo={countryTwo} 
+            setCountryTwo={setCountryTwo} 
+            />
 
-          <GridExample />
+          
 
  
 
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cerrar</Button>
-        </DialogActions>
+        
         </div>
       </Dialog>
     </React.Fragment>
