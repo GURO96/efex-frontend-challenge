@@ -11,30 +11,30 @@ import  fetchCurrencyEvents  from "../../utils/requestCurrencyData.tsx";
 
 export default function DashboardPage() {
 
-    const [countMXN, setCountMXN] = useState<number>(0);
-    const [countUSD, setCountUSD] = useState<number>(0);
-    const [countCOP, setCountCOP] = useState<number>(0);
-    const [countBG, setCountBG] = useState<number>(100);
+    // const [countMXN] = useState<number>(0);
+    // const [countUSD] = useState<number>(0);
+    // const [countCOP] = useState<number>(0);
+    const [countBG] = useState<number>(100);
 
     // const [country, setCountry] = React.useState<any>(countries[2]);
     // const [countryTwo, setCountryTwo] = React.useState<any>(countries[1]);
 
-    const balances = [
-        {
-            currency: 'USD',
-            amount: countUSD
-        }, {
-            currency: 'MXN',
-            amount: countMXN
-        }, {
-            currency: 'COP',
-            amount: countCOP
-        }
-    ]
+    // const balances = [
+    //     {
+    //         currency: 'USD',
+    //         amount: countUSD
+    //     }, {
+    //         currency: 'MXN',
+    //         amount: countMXN
+    //     }, {
+    //         currency: 'COP',
+    //         amount: countCOP
+    //     }
+    // ]
 
     
 
-    const { data, isPending, isError, error } = useQuery({
+    const { data, isPending, error } = useQuery({
         queryKey: ["currencyEvents"],
         queryFn: () => fetchCurrencyEvents({countBG, balanceGeneral:true}),
     })
@@ -52,7 +52,6 @@ export default function DashboardPage() {
     }
 
     const {data: dataRes} = data;
-    let countContent;
     if(dataRes){
         
         // console.log(dataRes)
@@ -75,36 +74,11 @@ export default function DashboardPage() {
         // setCountCOP(dataRes.rates.COP)
     }
 
-    // console.log(data)
-    // useEffect(() => {
-
-    //     const [data, setData] = useState([]);
-    //     const [loading, setLoading] = useState(true);
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    //             setData(response.data);
-    //             setLoading(false);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
 
     
     
 
-    const handleBalanceGeneral = () => {
 
-        // setCountBG(101)
-    }
-
-    const handlerDialog = () => {
-        
-    }
 
 
     return <Box>
@@ -170,7 +144,7 @@ export default function DashboardPage() {
                 marginTop: '1rem'
             }}>
                 {
-                    Object.keys(dataRes.rates).map((key, index) => 
+                    Object.keys(dataRes.rates).map((key, _index) => 
                         {
                             // console.log(key)
                         //   console.log(dataRes.rates[index]);

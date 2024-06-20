@@ -1,7 +1,6 @@
 
 import DashboardPage from '../../app/pages/dashboard';
 import Box from '@mui/material/Box';
-import SideMenu from '../side-menu/side-menu';
 
 
 

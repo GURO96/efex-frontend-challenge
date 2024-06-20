@@ -1,10 +1,8 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function CountrySelect({children, onSelect, currencyValue}: any) {
-  const [countryDefaulValue, setCountryDefaulValue] = React.useState(countries[2]);
+export default function CountrySelect({onSelect, currencyValue}: any) {
   // console.log(currencyValue)
 
    
@@ -12,7 +10,7 @@ export default function CountrySelect({children, onSelect, currencyValue}: any) 
 
   return (
     <Autocomplete
-      onChange={(event, newValue: CountryType) => onSelect(newValue)}
+      onChange={(_event, newValue: CountryType) => onSelect(newValue)}
       // onInputChange={(event, newValue: string) => onSelect(newValue)}
       id="country-select-demo"
       sx={{ width: 150 }}

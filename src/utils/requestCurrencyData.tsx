@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export default async function fetchCurrencyEvents(customParams?) {
+export default async function fetchCurrencyEvents(customParams?:any) {
 
-    const {signal, inputValue} = customParams;
+    const {signal} = customParams;
 
     //console.log(customParams);
     

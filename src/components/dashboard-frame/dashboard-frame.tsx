@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 
-import AppHeader from "../app-header/app-header.tsx";
 import DashboardPageFrame from "../dashboard-page-frame/dashboard-page-frame.tsx";
 import DashBoardHeader from "../dashboard-header/dashboard-header.tsx";
 import SideMenu from '../side-menu/side-menu.tsx';
